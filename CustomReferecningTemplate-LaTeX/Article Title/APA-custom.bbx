@@ -154,6 +154,46 @@
 \DeclareFieldFormat[book]{edition}{(#1\addspace ed.).}
 \DeclareFieldFormat[book]{pages}{(pp. #1)}
 
+\DeclareBibliographyDriver{InProceedings}{%  
+  \usebibmacro{bibindex}%  
+  \printnames{author}% Print the author's name  
+  \setunit{\labelnamepunct}\newblock%  
+  \printfield{year}% Print the year and month (if applicable)  
+  \newunit\newblock%  
+  
+  % Check if the entry has an editor field to decide the format  
+  \iffieldundef{editor}{%  
+    % Format for a conference presentation  
+    \printfield{eventdate}% Print the event date (e.g., "Year, Month dates")  
+    \newunit\newblock%  
+    \printfield{title}% Print the paper title in italics  
+    \setunit{\addspace}%  
+    {[Paper presentation]}%  
+    \newunit\newblock%  
+    \printfield{eventtitle}% Conference name  
+    \setunit{\addcomma\space}%  
+    \printfield{venue}% Location of the conference  
+  }{%  
+    % Format for a conference proceedings with an editor  
+    \printfield{title}% Print the paper title  
+    \newunit\newblock%  
+    \printnames{editor}% Print the editor's name  
+    \setunit{\addspace}%  
+    {(Ed.),}%  
+    \newunit\newblock%  
+    \printfield{booktitle}% Print the conference title in italics  
+    \setunit{\addspace}%  
+    \printfield{pages}% Print the pages  
+    \newunit\newblock%  
+    \printlist{publisher}% Print the publisher  
+  }%  
+  
+  \newunit\newblock%  
+  \iffieldundef{doi}{}{% Check if DOI is defined  
+    \printfield{doi}% Print the DOI  
+  }%  
+  \finentry  
+}
 
 \DeclareBibliographyDriver{phdthesis}{%  
   \usebibmacro{bibindex}%  
