@@ -1,0 +1,136 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{shamshirband2013appraisala}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=f88fe5dd342b5ce546d485d6c1e11372}{%
+           family={Shamshirband},
+           familyi={S\bibinitperiod},
+           given={Shahaboddin},
+           giveni={S\bibinitperiod}}}%
+        {{hash=14800a2474f837e5cc9535c238c8cc43}{%
+           family={Anuar},
+           familyi={A\bibinitperiod},
+           given={Nor\bibnamedelima Badrul},
+           giveni={N\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+        {{hash=968179642a88c22830bbbc462eb98f92}{%
+           family={Kiah},
+           familyi={K\bibinitperiod},
+           given={Miss\bibnamedelimb Laiha\bibnamedelima Mat},
+           giveni={M\bibinitperiod\bibinitdelim L\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=51d98d39dbcc458f061dcda32e375728}{%
+           family={Patel},
+           familyi={P\bibinitperiod},
+           given={Ahmed},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier}%
+      }
+      \strng{namehash}{aa0ddcccf4609afe2330d3354a703733}
+      \strng{fullhash}{34bd5232eb7374cb340fb891fe1863b9}
+      \strng{fullhashraw}{34bd5232eb7374cb340fb891fe1863b9}
+      \strng{bibnamehash}{34bd5232eb7374cb340fb891fe1863b9}
+      \strng{authorbibnamehash}{34bd5232eb7374cb340fb891fe1863b9}
+      \strng{authornamehash}{aa0ddcccf4609afe2330d3354a703733}
+      \strng{authorfullhash}{34bd5232eb7374cb340fb891fe1863b9}
+      \strng{authorfullhashraw}{34bd5232eb7374cb340fb891fe1863b9}
+      \field{extraname}{1}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Engineering Applications of Artificial Intelligence}
+      \field{number}{9}
+      \field{title}{An appraisal and design of a multi-agent system based cooperative wireless intrusion detection computational intelligence technique}
+      \field{volume}{26}
+      \field{year}{2013}
+      \field{pages}{2105\bibrangedash 2127}
+      \range{pages}{23}
+      \verb{doi}
+      \verb https://rgbreigbeji
+      \endverb
+    \endentry
+    \entry{shamshirband2013appraisalb}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=f88fe5dd342b5ce546d485d6c1e11372}{%
+           family={Shamshirband},
+           familyi={S\bibinitperiod},
+           given={Shahaboddin},
+           giveni={S\bibinitperiod}}}%
+        {{hash=14800a2474f837e5cc9535c238c8cc43}{%
+           family={Anuar},
+           familyi={A\bibinitperiod},
+           given={Nor\bibnamedelima Badrul},
+           giveni={N\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+        {{hash=968179642a88c22830bbbc462eb98f92}{%
+           family={Kiah},
+           familyi={K\bibinitperiod},
+           given={Miss\bibnamedelimb Laiha\bibnamedelima Mat},
+           giveni={M\bibinitperiod\bibinitdelim L\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=51d98d39dbcc458f061dcda32e375728}{%
+           family={Patel},
+           familyi={P\bibinitperiod},
+           given={Ahmed},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier}%
+      }
+      \strng{namehash}{aa0ddcccf4609afe2330d3354a703733}
+      \strng{fullhash}{34bd5232eb7374cb340fb891fe1863b9}
+      \strng{fullhashraw}{34bd5232eb7374cb340fb891fe1863b9}
+      \strng{bibnamehash}{34bd5232eb7374cb340fb891fe1863b9}
+      \strng{authorbibnamehash}{34bd5232eb7374cb340fb891fe1863b9}
+      \strng{authornamehash}{aa0ddcccf4609afe2330d3354a703733}
+      \strng{authorfullhash}{34bd5232eb7374cb340fb891fe1863b9}
+      \strng{authorfullhashraw}{34bd5232eb7374cb340fb891fe1863b9}
+      \field{extraname}{2}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Engineering Applications of Artificial Intelligence}
+      \field{number}{9}
+      \field{title}{fbertretbe}
+      \field{volume}{26}
+      \field{year}{2013}
+      \field{pages}{2105\bibrangedash 2127}
+      \range{pages}{23}
+      \verb{doi}
+      \verb https://rgbreigbejivreg
+      \endverb
+    \endentry
+  \enddatalist
+  \missing{bib10}
+  \missing{bib11}
+  \missing{bib12}
+  \missing{bib13}
+  \missing{bib3}
+  \missing{bib4}
+  \missing{bib5}
+  \missing{bib6}
+  \missing{bib7}
+  \missing{bib8}
+  \missing{bib9}
+\endrefsection
+\endinput
+

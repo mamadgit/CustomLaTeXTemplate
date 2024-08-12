@@ -1,0 +1,248 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nyt/global//global/global/global}
+    \entry{bonabeau2002agent}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=2266c9c1f7f84136a89c448586226962}{%
+           family={Bonabeau},
+           familyi={B\bibinitperiod},
+           given={Eric},
+           giveni={E\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {National Acad Sciences}%
+      }
+      \strng{namehash}{2266c9c1f7f84136a89c448586226962}
+      \strng{fullhash}{2266c9c1f7f84136a89c448586226962}
+      \strng{fullhashraw}{2266c9c1f7f84136a89c448586226962}
+      \strng{bibnamehash}{2266c9c1f7f84136a89c448586226962}
+      \strng{authorbibnamehash}{2266c9c1f7f84136a89c448586226962}
+      \strng{authornamehash}{2266c9c1f7f84136a89c448586226962}
+      \strng{authorfullhash}{2266c9c1f7f84136a89c448586226962}
+      \strng{authorfullhashraw}{2266c9c1f7f84136a89c448586226962}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Proceedings of the national academy of sciences}
+      \field{number}{suppl 3}
+      \field{title}{Agent-based modeling: Methods and techniques for simulating human systems}
+      \field{volume}{99}
+      \field{year}{2002}
+      \field{pages}{7280\bibrangedash 7287}
+      \range{pages}{8}
+    \endentry
+    \entry{shamshirband2013appraisala}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=f88fe5dd342b5ce546d485d6c1e11372}{%
+           family={Shamshirband},
+           familyi={S\bibinitperiod},
+           given={Shahaboddin},
+           giveni={S\bibinitperiod}}}%
+        {{hash=14800a2474f837e5cc9535c238c8cc43}{%
+           family={Anuar},
+           familyi={A\bibinitperiod},
+           given={Nor\bibnamedelima Badrul},
+           giveni={N\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+        {{hash=968179642a88c22830bbbc462eb98f92}{%
+           family={Kiah},
+           familyi={K\bibinitperiod},
+           given={Miss\bibnamedelimb Laiha\bibnamedelima Mat},
+           giveni={M\bibinitperiod\bibinitdelim L\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=51d98d39dbcc458f061dcda32e375728}{%
+           family={Patel},
+           familyi={P\bibinitperiod},
+           given={Ahmed},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier}%
+      }
+      \strng{namehash}{34bd5232eb7374cb340fb891fe1863b9}
+      \strng{fullhash}{34bd5232eb7374cb340fb891fe1863b9}
+      \strng{fullhashraw}{34bd5232eb7374cb340fb891fe1863b9}
+      \strng{bibnamehash}{34bd5232eb7374cb340fb891fe1863b9}
+      \strng{authorbibnamehash}{34bd5232eb7374cb340fb891fe1863b9}
+      \strng{authornamehash}{34bd5232eb7374cb340fb891fe1863b9}
+      \strng{authorfullhash}{34bd5232eb7374cb340fb891fe1863b9}
+      \strng{authorfullhashraw}{34bd5232eb7374cb340fb891fe1863b9}
+      \field{extraname}{1}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradate}{1}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Engineering Applications of Artificial Intelligence}
+      \field{number}{9}
+      \field{title}{An appraisal and design of a multi-agent system based cooperative wireless intrusion detection computational intelligence technique}
+      \field{volume}{26}
+      \field{year}{2013}
+      \field{pages}{2105\bibrangedash 2127}
+      \range{pages}{23}
+      \verb{doi}
+      \verb https://rgbreigbeji
+      \endverb
+    \endentry
+    \entry{shamshirband2013appraisalb}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=f88fe5dd342b5ce546d485d6c1e11372}{%
+           family={Shamshirband},
+           familyi={S\bibinitperiod},
+           given={Shahaboddin},
+           giveni={S\bibinitperiod}}}%
+        {{hash=14800a2474f837e5cc9535c238c8cc43}{%
+           family={Anuar},
+           familyi={A\bibinitperiod},
+           given={Nor\bibnamedelima Badrul},
+           giveni={N\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+        {{hash=968179642a88c22830bbbc462eb98f92}{%
+           family={Kiah},
+           familyi={K\bibinitperiod},
+           given={Miss\bibnamedelimb Laiha\bibnamedelima Mat},
+           giveni={M\bibinitperiod\bibinitdelim L\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=51d98d39dbcc458f061dcda32e375728}{%
+           family={Patel},
+           familyi={P\bibinitperiod},
+           given={Ahmed},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier}%
+      }
+      \strng{namehash}{34bd5232eb7374cb340fb891fe1863b9}
+      \strng{fullhash}{34bd5232eb7374cb340fb891fe1863b9}
+      \strng{fullhashraw}{34bd5232eb7374cb340fb891fe1863b9}
+      \strng{bibnamehash}{34bd5232eb7374cb340fb891fe1863b9}
+      \strng{authorbibnamehash}{34bd5232eb7374cb340fb891fe1863b9}
+      \strng{authornamehash}{34bd5232eb7374cb340fb891fe1863b9}
+      \strng{authorfullhash}{34bd5232eb7374cb340fb891fe1863b9}
+      \strng{authorfullhashraw}{34bd5232eb7374cb340fb891fe1863b9}
+      \field{extraname}{2}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradate}{2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Engineering Applications of Artificial Intelligence}
+      \field{number}{9}
+      \field{title}{fbertretbe}
+      \field{volume}{26}
+      \field{year}{2013}
+      \field{pages}{2105\bibrangedash 2127}
+      \range{pages}{23}
+      \verb{doi}
+      \verb https://rgbreigbejivreg
+      \endverb
+    \endentry
+    \entry{singh2015autonomous}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=d77c73a14b0f048484c1d34aba3071d4}{%
+           family={Singh},
+           familyi={S\bibinitperiod},
+           given={Aarti},
+           giveni={A\bibinitperiod}}}%
+        {{hash=8936cf5f980cc133b9e83ca022dcf567}{%
+           family={Juneja},
+           familyi={J\bibinitperiod},
+           given={Dimple},
+           giveni={D\bibinitperiod}}}%
+        {{hash=651aa69e884fb898dc15b26c8e32cecb}{%
+           family={Malhotra},
+           familyi={M\bibinitperiod},
+           given={Manisha},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier}%
+      }
+      \strng{namehash}{352e83102f69553101c430fce7d71e2f}
+      \strng{fullhash}{352e83102f69553101c430fce7d71e2f}
+      \strng{fullhashraw}{352e83102f69553101c430fce7d71e2f}
+      \strng{bibnamehash}{352e83102f69553101c430fce7d71e2f}
+      \strng{authorbibnamehash}{352e83102f69553101c430fce7d71e2f}
+      \strng{authornamehash}{352e83102f69553101c430fce7d71e2f}
+      \strng{authorfullhash}{352e83102f69553101c430fce7d71e2f}
+      \strng{authorfullhashraw}{352e83102f69553101c430fce7d71e2f}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Procedia Computer Science}
+      \field{title}{Autonomous agent based load balancing algorithm in cloud computing}
+      \field{volume}{45}
+      \field{year}{2015}
+      \field{pages}{832\bibrangedash 841}
+      \range{pages}{10}
+    \endentry
+    \entry{wooldridge2009introduction}{book}{}{}
+      \name{editor}{1}{}{%
+        {{hash=12f1fbd2fdbc38d5f0aab5199c7cb469}{%
+           family={Wrrb},
+           familyi={W\bibinitperiod},
+           given={Mdwb},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {John wiley \& sons}%
+      }
+      \strng{namehash}{12f1fbd2fdbc38d5f0aab5199c7cb469}
+      \strng{fullhash}{12f1fbd2fdbc38d5f0aab5199c7cb469}
+      \strng{fullhashraw}{12f1fbd2fdbc38d5f0aab5199c7cb469}
+      \strng{bibnamehash}{12f1fbd2fdbc38d5f0aab5199c7cb469}
+      \strng{editorbibnamehash}{12f1fbd2fdbc38d5f0aab5199c7cb469}
+      \strng{editornamehash}{12f1fbd2fdbc38d5f0aab5199c7cb469}
+      \strng{editorfullhash}{12f1fbd2fdbc38d5f0aab5199c7cb469}
+      \strng{editorfullhashraw}{12f1fbd2fdbc38d5f0aab5199c7cb469}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{editor}
+      \field{labeltitlesource}{title}
+      \field{edition}{2nd}
+      \field{title}{An introduction to multiagent systems}
+      \field{year}{2009}
+      \field{pages}{2\bibrangedash 10}
+      \range{pages}{9}
+    \endentry
+  \enddatalist
+  \missing{bib10}
+  \missing{bib11}
+  \missing{bib12}
+  \missing{bib13}
+  \missing{bib3}
+  \missing{bib4}
+  \missing{bib5}
+  \missing{bib6}
+  \missing{bib7}
+  \missing{bib8}
+  \missing{bib9}
+\endrefsection
+\endinput
+

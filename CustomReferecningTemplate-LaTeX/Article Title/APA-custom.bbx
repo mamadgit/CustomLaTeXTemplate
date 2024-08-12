@@ -1,0 +1,187 @@
+\ProvidesFile{APA-custom.bbx}  
+\RequireBibliographyStyle{numeric}  
+
+% Define ordering rule to disambiguate similar entries  
+\DeclareSortingTemplate{nyt}{%  
+  \sort{  
+    \field{presort}  
+  }
+  \sort{  
+    \field{sortname}  
+    \field{author}  
+    \field{editor}  
+    \field{translator}  
+    \field{sorttitle}  
+    \field{title}  
+  }   
+  \sort[final]{  
+    \field{sortyear}  
+    \field{year}  
+    \field{month}  
+    \field{day}  
+    \field{sorttitle}  
+    \field{title}  
+  }   
+}  
+ 
+% Multi-letter label alphabet for year disambiguation  
+\DeclareLabelalphaTemplate{  
+  \labelelement{  
+    \field[strwidth=1,strside=left,ifnames=1]{labelname}  
+    \field[strwidth=1,strside=left,ifnames=1]{author}  
+    \field[strwidth=1,strside=left,ifnames=1]{editor}  
+  }  
+  \labelelement{  
+    \field[strwidth=1,strside=right]{labelname}  
+    \field[strwidth=1,strside=right]{author}  
+    \field[strwidth=1,strside=right]{editor}  
+  }  
+  \labelelement{  
+    \field[strwidth=2]{year}  
+  }  
+}  
+
+\DeclareBibliographyDriver{article}{%  
+  \usebibmacro{bibindex}%  
+  \printnames{author}%  
+  \setunit{\labelnamepunct}\newblock  
+  \printfield{year}%  
+  % \iffieldundef{extrayear}{}  
+  %   {\printfield{extrayear}}% This will add the 'a', 'b', 'c'... suffix  
+  \newunit\newblock  
+  \printfield{title}%  
+  \newunit\newblock  
+  \printfield{journaltitle}%  
+  \setunit{\addcomma\addspace}  
+  \printfield{volume}%  
+  \printfield{number}%  
+  \setunit{\addcomma\addspace}  
+  \printfield{pages}%  
+  %\newunit\newblock  
+  \iffieldundef{doi}  % Check if DOI is defined  
+    {} % Do nothing if DOI is not defined  
+    {\newunit\newblock\printfield{doi}} % Add the new unit and print DOI if defined   
+ }%  
+
+\DeclareNameFormat{author}{%  
+  \nameparts{#1}%  
+  \ifblank{\namepartfamily}  
+    {}  
+    {\namepartfamily\addcomma\space}%  
+  \ifblank{\namepartgiven}  
+    {}  
+    {\namepartgiveni\adddot}%  
+    \ifthenelse{\value{listcount}<\value{liststop}}% Not the last author  
+    {\ifthenelse{\value{listcount}=\numexpr\value{liststop}-1\relax}% Second to last author  
+      {\addcomma\addspace\&} % Add '&' before the last author's name  
+      } % Add comma after other authors  
+    {} % Do not add anything after the last author    
+    {\ifthenelse{\value{listcount}<20 \OR (\value{listcount}=20 \AND \value{liststop}>21)}  
+      {\addcomma\space} % Add commas for the first 19 authors or if there are more than 21 authors, add comma before ellipsis  
+      {\ifthenelse{\value{listcount}=20 \AND \value{liststop}>21}  
+        {\addspace...\space} % After the 19th author, add ellipsis for more than 21 authors  
+          {\ifthenelse{\value{listcount}=21}  
+            {\addcomma\space\namepartfamily\addcomma\space\namepartgiveni\adddot} % Add final author's name after ellipsis for more than 21 authors  
+            {}}}}  
+} % Add comma and space after each author's name  
+
+\DeclareFieldFormat[article]{title}{#1}   
+\DeclareFieldFormat[article]{year}{%  
+  (#1%  
+  \iffieldundef{extrayear}  
+    {}  
+    {\printfield{extrayear}}%  
+  )}
+\DeclareFieldFormat[article]{journaltitle}{\textit{#1}}  
+\DeclareFieldFormat[article]{volume}{\textit{#1}}  
+\DeclareFieldFormat[article]{number}{(#1)} 
+\DeclareFieldFormat[article]{pages}{#1} % Just print the page numbers as is 
+\DeclareFieldFormat{doi}{\url{#1}} % Format the DOI to just print the URL
+
+% Enable 'extrayear' field for distinguishing entries with the same year  
+
+\DeclareBibliographyDriver{book}{%  
+  \usebibmacro{bibindex}%  
+  \iffieldundef{author}
+  {\printnames{editor}}
+  {\printnames{author}}% Print the authors' names  
+  \setunit{\labelnamepunct}\newblock%  
+  \printfield{year}% Print the year in parentheses  
+  \newunit\newblock%  
+  \printfield{title}% Print the book title  
+  \setunit{\addspace}%  
+  \iffieldundef{edition}  
+    {}  
+    {\ifthenelse{\iffieldequalstr{edition}{1st} \OR \iffieldequalstr{edition}{1}}  % Check if edition is '1st' or just '1'  
+      {} % Do nothing for 1st edition  
+      {\printfield{edition}} % Print edition if not first  
+    }%  
+  %\newunit\newblock%
+  \iffieldundef{pages}
+  {}
+  {\printfield{pages}}
+  \newunit\newblock
+  \printlist{publisher}% Print the publisher 
+  \iffieldundef{doi}  % Check if DOI is defined  
+  {\finentry}  
+  {\newunit\newblock\printfield{doi}} % Add the new unit and print DOI if defined    
+}
+
+\DeclareNameFormat{editor}{%  
+  \nameparts{#1}%  
+  \ifblank{\namepartfamily}  
+    {}  
+    {\namepartfamily\addcomma\space}%  
+  \ifblank{\namepartgiven}  
+    {}  
+    {\namepartgiveni\adddot\space (Ed.).}%  
+    \ifthenelse{\value{listcount}<\value{liststop}}% Not the last author  
+    {\ifthenelse{\value{listcount}=\numexpr\value{liststop}-1\relax}% Second to last author  
+      {\addcomma\addspace\&} % Add '&' before the last author's name  
+      } % Add comma after other authors  
+    {} % Do not add anything after the last author    
+    {\ifthenelse{\value{listcount}<20 \OR (\value{listcount}=20 \AND \value{liststop}>21)}  
+      {\addcomma\space} % Add commas for the first 19 authors or if there are more than 21 authors, add comma before ellipsis  
+      {\ifthenelse{\value{listcount}=20 \AND \value{liststop}>21}  
+        {\addspace...\space} % After the 19th author, add ellipsis for more than 21 authors  
+          {\ifthenelse{\value{listcount}=21}  
+            {\addcomma\space\namepartfamily\addcomma\space\namepartgiveni\adddot} % Add final author's name after ellipsis for more than 21 authors  
+            {}}}}  
+} % Add comma and space after each author's name 
+
+\DeclareFieldFormat[book]{year}{(#1)}
+\DeclareFieldFormat[book]{title}{\textit{#1}}
+\DeclareFieldFormat[book]{edition}{(#1\addspace ed.).}
+\DeclareFieldFormat[book]{pages}{(pp. #1)}
+
+
+\DeclareBibliographyDriver{phdthesis}{%  
+  \usebibmacro{bibindex}%  
+  \printnames{author}% Print the author's name  
+  \setunit*{\labelnamepunct}\newblock%  
+  \printfield{year}% Print the year in parentheses  
+  \newunit\newblock%  
+  \printfield{title}% Print the dissertation title  
+  \setunit{\addspace}%  
+  % Check if the thesis is unpublished or published  
+  \ifthenelse{\iffieldequalstr{type}{unpublished}}{% For unpublished theses  
+    {(\printfield{type})} % E.g., Unpublished doctoral dissertation  
+  }{%  
+    \printfield{number}% Publication number if published  
+    \addspace
+    \printfield{[type\addcomma institution]}% E.g., Doctoral dissertation  and University or institution  
+    \setunit{\addspace}\newblock  
+    \printfield{publisher}% Repository or publisher like Proquest  
+  }%  
+  \ifthenelse{\iffieldundef{institution}}{}{% Check if institution is defined  
+    {[\printfield{institution}]}% University or institution for published  
+  }%  
+  \finentry  
+}
+
+\DeclareFieldFormat[phdthesis]{year}{(#1)}
+\DeclareFieldFormat[phdthesis]{title}{\textit{#1}}
+\DeclareIndexFieldFormat[phdthesis]{type}{(#1)}
+\DeclareIndexFieldFormat[phdthesis]{number}{(Publication No.\space #1)}
+
+\ExecuteBibliographyOptions{labeldateparts=true, sorting=nyt, maxnames=20}
