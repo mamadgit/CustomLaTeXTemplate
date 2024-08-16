@@ -100,59 +100,170 @@
 
 % Enable 'extrayear' field for distinguishing entries with the same year  
 
+% \DeclareBibliographyDriver{book}{%  
+%   \usebibmacro{bibindex}%  
+%   \iffieldundef{author}
+%   {\printnames{editor}}
+%   {\printnames{author}}% Print the authors' names  
+%   \setunit{\labelnamepunct}\newblock%  
+%   \printfield{year}% Print the year in parentheses  
+%   \newunit\newblock%  
+%   \printfield{title}% Print the book title  
+%   \setunit{\addspace}%  
+%   \iffieldundef{edition}  
+%     {}  
+%     {\ifthenelse{\iffieldequalstr{edition}{1st} \OR \iffieldequalstr{edition}{1}}  % Check if edition is '1st' or just '1'  
+%       {} % Do nothing for 1st edition  
+%       {\printfield{edition}} % Print edition if not first  
+%     }%  
+%   %\newunit\newblock%
+%   \iffieldundef{pages}
+%   {}
+%   {\printfield{pages}}
+%   \newunit\newblock
+%   \printlist{publisher}% Print the publisher 
+%   \iffieldundef{doi}  % Check if DOI is defined  
+%   {\finentry}  
+%   {\newunit\newblock\printfield{doi}} % Add the new unit and print DOI if defined    
+% }
 \DeclareBibliographyDriver{book}{%  
   \usebibmacro{bibindex}%  
-  \iffieldundef{author}
-  {\printnames{editor}}
-  {\printnames{author}}% Print the authors' names  
-  \setunit{\labelnamepunct}\newblock%  
-  \printfield{year}% Print the year in parentheses  
-  \newunit\newblock%  
-  \printfield{title}% Print the book title  
-  \setunit{\addspace}%  
-  \iffieldundef{edition}  
-    {}  
-    {\ifthenelse{\iffieldequalstr{edition}{1st} \OR \iffieldequalstr{edition}{1}}  % Check if edition is '1st' or just '1'  
-      {} % Do nothing for 1st edition  
-      {\printfield{edition}} % Print edition if not first  
+  % Check if there's an editor or whether it's an edited volume  
+  \ifnameundef{editor}{%  
+    % Author-present case  
+    \printnames{author}% Print the authors' names  
+    \setunit{\labelnamepunct}\newblock%  
+    \printfield{year}% Print the year in parentheses  
+    \newunit\newblock% 
+    \printfield{title}
+    \newunit\newblock
+    \ifboolexpr{
+      not test{\ifnameundef{author}}
+      and
+      not test{\ifnameundef{editor}}
+    }
+      {
+        \printfield{editor}
+        \setunit{\addcomma\space}
+        \printfield{booktitle}
+        \space
+        \printfield{pages}
+      }
+      {
+        
+      }
+
+    \printfield[title]{title}% Print the book title in italics  
+    \iffieldundef{edition}{}{ % Check for edition, and if available  
+      \addspace\printfield{edition}%  
     }%  
-  %\newunit\newblock%
-  \iffieldundef{pages}
-  {}
-  {\printfield{pages}}
-  \newunit\newblock
-  \printlist{publisher}% Print the publisher 
-  \iffieldundef{doi}  % Check if DOI is defined  
-  {\finentry}  
-  {\newunit\newblock\printfield{doi}} % Add the new unit and print DOI if defined    
+    \newunit\newblock%  
+    \printfield{publisher}% Print the publisher  
+  
+  }{%   
+    % Edited book or part of an edited volume  
+    \printnames{editor}% Print the editor's names  
+    \setunit{\addspace}%  
+    {(Ed.)}%  
+    \setunit{\labelnamepunct}\newblock%  
+    \printfield{year}% Print the year in parentheses  
+    \newunit\newblock%  
+    
+    \iffieldundef{booktitle}{% No separated booktitle (standalone edited book)  
+      \printfield[title]{title}% Print the full title with italics  
+    }{%  
+      % Part of an edited book with chapter specifics  
+      \printfield[title]{chaptertitle}% Print the chapter title  
+      \newunit\newblock%  
+      \printnames{author}% Print the chapter authors  
+      \setunit{\addspace}%  
+      {In\space}%  
+      \printnames{editor}% Include editors  
+      \addspace%  
+      {(Eds.),}%  
+      \newunit\newblock%  
+      \printfield{booktitle}% Book title itself  
+      \setunit{\addspace}%  
+      \printfield{pages}% Print the pages in format (pp.xx-xx)  
+    }%  
+    \newunit\newblock%  
+    \printfield{publisher}% Print the publisher  
+    
+  }%  
+  \newunit\newblock%  
+  \iffieldundef{doi}{}{% Check and print DOI if available  
+    \printfield{doi}%  
+  }%  
+  \finentry  
 }
 
-\DeclareNameFormat{editor}{%  
-  \nameparts{#1}%  
-  \ifblank{\namepartfamily}  
+\DeclareNameFormat{editor}{%
+  \ifboolexpr
+    {
+      test{\ifnameundef{author}}
+      and
+      not test{\ifnameundef{editor}}
+    }
+    {\nameparts{#1}%  
+    \ifblank{\namepartfamily}  
+      {}  
+      {\namepartfamily\addcomma\space}%  
+    \ifblank{\namepartgiven}  
+      {}  
+      {\namepartgiveni\adddot\space (Ed.).}%  
+      \ifthenelse{\value{listcount}<\value{liststop}}% Not the last author  
+      {\ifthenelse{\value{listcount}=\numexpr\value{liststop}-1\relax}% Second to last author  
+        {\addcomma\addspace\&} % Add '&' before the last author's name  
+        } % Add comma after other authors  
+      {}
+      }
+    {}
+
+  \ifboolexpr
+    {
+      not test{\ifnameundef{author}}
+      and
+      not test{\ifnameundef{editor}}
+    }
+    {
+      \nameparts{#1}%  
+      \ifblank{\namepartgiven}  
+        {}  
+        {In\space\namepartgiveni\adddot\space}%
+        \namepartfamily\space(Ed.)    
+      \ifthenelse{\value{listcount}<\value{liststop}}% Not the last author  
+      {\ifthenelse{\value{listcount}=\numexpr\value{liststop}-1\relax}% Second to last author  
+        {\addcomma\addspace\&} % Add '&' before the last author's name  
+        } % Add comma after other authors  
+      {}
+    }
     {}  
-    {\namepartfamily\addcomma\space}%  
-  \ifblank{\namepartgiven}  
-    {}  
-    {\namepartgiveni\adddot\space (Ed.).}%  
-    \ifthenelse{\value{listcount}<\value{liststop}}% Not the last author  
-    {\ifthenelse{\value{listcount}=\numexpr\value{liststop}-1\relax}% Second to last author  
-      {\addcomma\addspace\&} % Add '&' before the last author's name  
-      } % Add comma after other authors  
-    {} % Do not add anything after the last author    
-    {\ifthenelse{\value{listcount}<20 \OR (\value{listcount}=20 \AND \value{liststop}>21)}  
-      {\addcomma\space} % Add commas for the first 19 authors or if there are more than 21 authors, add comma before ellipsis  
-      {\ifthenelse{\value{listcount}=20 \AND \value{liststop}>21}  
-        {\addspace...\space} % After the 19th author, add ellipsis for more than 21 authors  
-          {\ifthenelse{\value{listcount}=21}  
-            {\addcomma\space\namepartfamily\addcomma\space\namepartgiveni\adddot} % Add final author's name after ellipsis for more than 21 authors  
-            {}}}}  
+ % Do not add anything after the last author    
+
+
+    % {\ifthenelse{\value{listcount}<20 \OR (\value{listcount}=20 \AND \value{liststop}>21)}  
+    %   {\addcomma\space} % Add commas for the first 19 authors or if there are more than 21 authors, add comma before ellipsis  
+    %   {\ifthenelse{\value{listcount}=20 \AND \value{liststop}>21}  
+    %     {\addspace...\space} % After the 19th author, add ellipsis for more than 21 authors  
+    %       {\ifthenelse{\value{listcount}=21}  
+    %         {\addcomma\space\namepartfamily\addcomma\space\namepartgiveni\adddot} % Add final author's name after ellipsis for more than 21 authors  
+    %         {}}}}  
 } % Add comma and space after each author's name 
 
 \DeclareFieldFormat[book]{year}{(#1)}
-\DeclareFieldFormat[book]{title}{\textit{#1}}
+\DeclareFieldFormat[book]{title}{%
+\ifboolexpr
+  {
+    not test{\ifnameundef{author}}
+    and
+    not test{\ifnameundef{editor}}
+  }
+  {\textit{#1}}
+  {}  
+  }
 \DeclareFieldFormat[book]{edition}{(#1\addspace ed.).}
 \DeclareFieldFormat[book]{pages}{(pp. #1)}
+
 
 \DeclareBibliographyDriver{InProceedings}{%  
   \usebibmacro{bibindex}%  
