@@ -153,40 +153,40 @@
       
       }
 
-    \printfield[title]{title}% Print the book title in italics  
-    \iffieldundef{edition}{}{ % Check for edition, and if available  
-      \addspace\printfield{edition}%  
-    }%  
-    \newunit\newblock%  
+    % \printfield[title]{title}% Print the book title in italics  
+    % \iffieldundef{edition}{}{ % Check for edition, and if available  
+    %   \addspace\printfield{edition}%  
+    % }%  
+    % \newunit\newblock%  
     \printfield{publisher}% Print the publisher  
-  
+    \finentry
   }{%   
     % Edited book or part of an edited volume  
     \printnames{editor}% Print the editor's names  
     \setunit{\addspace}%  
-    {(Ed.)}%  
+    % {(Ed.)}%  
     \setunit{\labelnamepunct}\newblock%  
     \printfield{year}% Print the year in parentheses  
     \newunit\newblock%  
+    % \iffieldundef{booktitle}{% No separated booktitle (standalone edited book)  
+    %   \printfield[title]{title}% Print the full title with italics  
+    % }{%  
+    %   % Part of an edited book with chapter specifics  
+    %   \printfield[title]{chaptertitle}% Print the chapter title  
+    %   \newunit\newblock%  
+    %   \printnames{author}% Print the chapter authors  
+    %   \setunit{\addspace}%  
+    %   {In\space}%  
+    %   \printnames{editor}% Include editors  
+    %   \addspace%  
+    %   {(Eds.),}%  
+    %   \newunit\newblock%  
+    %   \printfield{booktitle}% Book title itself  
+    %   \setunit{\addspace}%  
+    %   \printfield{pages}% Print the pages in format (pp.xx-xx)  
+    % }%  
+    % \newunit\newblock%  
     
-    \iffieldundef{booktitle}{% No separated booktitle (standalone edited book)  
-      \printfield[title]{title}% Print the full title with italics  
-    }{%  
-      % Part of an edited book with chapter specifics  
-      \printfield[title]{chaptertitle}% Print the chapter title  
-      \newunit\newblock%  
-      \printnames{author}% Print the chapter authors  
-      \setunit{\addspace}%  
-      {In\space}%  
-      \printnames{editor}% Include editors  
-      \addspace%  
-      {(Eds.),}%  
-      \newunit\newblock%  
-      \printfield{booktitle}% Book title itself  
-      \setunit{\addspace}%  
-      \printfield{pages}% Print the pages in format (pp.xx-xx)  
-    }%  
-    \newunit\newblock%  
     \printfield{publisher}% Print the publisher  
     
   }%  
@@ -251,6 +251,7 @@
 } % Add comma and space after each author's name 
 
 \DeclareFieldFormat[book]{year}{(#1)}
+\DeclareFieldFormat[book]{booktitle}{\textit{#1}}
 \DeclareFieldFormat[book]{title}{%
 \ifboolexpr
   {
