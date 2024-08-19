@@ -136,8 +136,15 @@
     \printfield{year}% Print the year in parentheses  
     \newunit\newblock% 
     \printfield{title}
+    \setunit{\addspace}
+    \iffieldundef{edition}  
+      {}  
+      {\ifthenelse{\iffieldequalstr{edition}{1st} \OR \iffieldequalstr{edition}{1}}  % Check if edition is '1st' or just '1'  
+        {} % Do nothing for 1st edition  
+        {\printfield{edition}\addspace} % Print edition if not first  
+      }%  
     \newunit\newblock
-    \ifboolexpr{
+    \ifboolexpr{%Author & Editor-present case
       not test{\ifnameundef{author}}
       and
       not test{\ifnameundef{editor}}
@@ -148,6 +155,7 @@
         \printfield{booktitle}
         \space
         \printfield{pages}
+        \newunit\newblock
       }
       {
       
@@ -158,7 +166,11 @@
     %   \addspace\printfield{edition}%  
     % }%  
     % \newunit\newblock%  
-    \printfield{publisher}% Print the publisher  
+    % \printfield{publisher}% Print the publisher  
+    % \newunit\newblock%  
+    % \iffieldundef{doi}{}{% Check and print DOI if available  
+    %   \printfield{doi}%  
+    % }%
     \finentry
   }{%   
     % Edited book or part of an edited volume  
@@ -168,6 +180,7 @@
     \setunit{\labelnamepunct}\newblock%  
     \printfield{year}% Print the year in parentheses  
     \newunit\newblock%  
+    \printfield{booktitle}
     % \iffieldundef{booktitle}{% No separated booktitle (standalone edited book)  
     %   \printfield[title]{title}% Print the full title with italics  
     % }{%  
@@ -186,11 +199,12 @@
     %   \printfield{pages}% Print the pages in format (pp.xx-xx)  
     % }%  
     % \newunit\newblock%  
-    
-    \printfield{publisher}% Print the publisher  
+    % \newunit\newblock
+    % \printfield{publisher}% Print the publisher  
     
   }%  
-  \newunit\newblock%  
+  \newunit\newblock% 
+  \printfield{publisher} 
   \iffieldundef{doi}{}{% Check and print DOI if available  
     \printfield{doi}%  
   }%  
