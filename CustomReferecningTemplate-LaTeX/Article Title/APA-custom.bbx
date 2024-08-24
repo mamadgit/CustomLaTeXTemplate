@@ -86,7 +86,7 @@
 } % Add comma and space after each author's name  
 
 \DeclareFieldFormat[article]{title}{#1}   
-\DeclareFieldFormat[article]{year}{%  
+\DeclareFieldFormat[article]{year}{% Enable 'extrayear' field for distinguishing entries with the same year  
   (#1%  
   \iffieldundef{extrayear}  
     {}  
@@ -98,118 +98,71 @@
 \DeclareFieldFormat[article]{pages}{#1} % Just print the page numbers as is 
 \DeclareFieldFormat{doi}{\url{#1}} % Format the DOI to just print the URL
 
-% Enable 'extrayear' field for distinguishing entries with the same year  
 
-% \DeclareBibliographyDriver{book}{%  
-%   \usebibmacro{bibindex}%  
-%   \iffieldundef{author}
-%   {\printnames{editor}}
-%   {\printnames{author}}% Print the authors' names  
-%   \setunit{\labelnamepunct}\newblock%  
-%   \printfield{year}% Print the year in parentheses  
-%   \newunit\newblock%  
-%   \printfield{title}% Print the book title  
-%   \setunit{\addspace}%  
-%   \iffieldundef{edition}  
-%     {}  
-%     {\ifthenelse{\iffieldequalstr{edition}{1st} \OR \iffieldequalstr{edition}{1}}  % Check if edition is '1st' or just '1'  
-%       {} % Do nothing for 1st edition  
-%       {\printfield{edition}} % Print edition if not first  
-%     }%  
-%   %\newunit\newblock%
-%   \iffieldundef{pages}
-%   {}
-%   {\printfield{pages}}
-%   \newunit\newblock
-%   \printlist{publisher}% Print the publisher 
-%   \iffieldundef{doi}  % Check if DOI is defined  
-%   {\finentry}  
-%   {\newunit\newblock\printfield{doi}} % Add the new unit and print DOI if defined    
-% }
 \DeclareBibliographyDriver{book}{%  
   \usebibmacro{bibindex}%  
-  % Check if there's an editor or whether it's an edited volume  
-  \ifnameundef{editor}{%  
-    % Author-present case  
-    \printnames{author}% Print the authors' names  
-    \setunit{\labelnamepunct}\newblock%  
-    \printfield{year}% Print the year in parentheses  
-    \newunit\newblock% 
-    \printfield{title}
-    \setunit{\addspace}
-    \iffieldundef{edition}  
-      {}  
-      {\ifthenelse{\iffieldequalstr{edition}{1st} \OR \iffieldequalstr{edition}{1}}  % Check if edition is '1st' or just '1'  
-        {} % Do nothing for 1st edition  
-        {\printfield{edition}\addspace} % Print edition if not first  
-      }%  
-    \newunit\newblock
-    \ifboolexpr{%Author & Editor-present case
-      not test{\ifnameundef{author}}
-      and
-      not test{\ifnameundef{editor}}
-    }
-      {
-        \printfield{editor}
-        \setunit{\addcomma\space}
+  %Check if there's an editor or whether it's an Authro-Editor volume
+  \ifboolexpr
+  {
+   not test {\ifnameundef{author}}
+   and 
+   test {\ifnameundef{editor}} 
+  }
+  {
+        % Author-present case  
+        \printnames{author}% Print the authors' names  
+        \setunit{\labelnamepunct}\newblock%  
+        \printfield{year}% Print the year in parentheses  
+        \newunit\newblock% 
+        \iffieldundef{title}
+          {\printfield{booktitle}}  % If 'title' is undefined, use 'booktitle'
+          {\printfield{title}}  % Otherwise use 'title'
+        \setunit{\addspace}
+        \iffieldundef{edition}  
+          {}  
+          {\ifthenelse{\iffieldequalstr{edition}{1st} \OR \iffieldequalstr{edition}{1}}  % Check if edition is '1st' or just '1'  
+            {} % Do nothing for 1st edition  
+            {\printfield{edition}\addspace} % Print edition if not first  
+          }%  
+        
+        \ifboolexpr{%Author & Editor-present case
+          not test{\ifnameundef{author}}
+          and
+          not test{\ifnameundef{editor}}
+        }
+          {
+            \newunit\newblock
+            \printfield{editor}
+            \setunit{\addcomma\space}
+            \printfield{booktitle}
+            \space
+            \printfield{pages}
+            \newunit\newblock
+          }
+          {
+          
+          }
+  }
+  {
+        % Edited book or part of an edited volume  
+        \printnames{editor}% Print the editor's names  
+        \setunit{\addspace}%  
+        % {(Ed.)}%  
+        \setunit{\labelnamepunct}\newblock%  
+        \printfield{year}% Print the year in parentheses  
+        \newunit\newblock%  
         \printfield{booktitle}
-        \space
-        \printfield{pages}
-        \newunit\newblock
-      }
-      {
-      
-      }
-
-    % \printfield[title]{title}% Print the book title in italics  
-    % \iffieldundef{edition}{}{ % Check for edition, and if available  
-    %   \addspace\printfield{edition}%  
-    % }%  
-    % \newunit\newblock%  
-    % \printfield{publisher}% Print the publisher  
-    % \newunit\newblock%  
-    % \iffieldundef{doi}{}{% Check and print DOI if available  
-    %   \printfield{doi}%  
-    % }%
-    \finentry
-  }{%   
-    % Edited book or part of an edited volume  
-    \printnames{editor}% Print the editor's names  
-    \setunit{\addspace}%  
-    % {(Ed.)}%  
-    \setunit{\labelnamepunct}\newblock%  
-    \printfield{year}% Print the year in parentheses  
-    \newunit\newblock%  
-    \printfield{booktitle}
-    % \iffieldundef{booktitle}{% No separated booktitle (standalone edited book)  
-    %   \printfield[title]{title}% Print the full title with italics  
-    % }{%  
-    %   % Part of an edited book with chapter specifics  
-    %   \printfield[title]{chaptertitle}% Print the chapter title  
-    %   \newunit\newblock%  
-    %   \printnames{author}% Print the chapter authors  
-    %   \setunit{\addspace}%  
-    %   {In\space}%  
-    %   \printnames{editor}% Include editors  
-    %   \addspace%  
-    %   {(Eds.),}%  
-    %   \newunit\newblock%  
-    %   \printfield{booktitle}% Book title itself  
-    %   \setunit{\addspace}%  
-    %   \printfield{pages}% Print the pages in format (pp.xx-xx)  
-    % }%  
-    % \newunit\newblock%  
-    % \newunit\newblock
-    % \printfield{publisher}% Print the publisher  
-    
-  }%  
-  \newunit\newblock% 
-  \printfield{publisher} 
-  \iffieldundef{doi}{}{% Check and print DOI if available  
+  } 
+  \newunit\newblock
+  \printlist{publisher}
+  \iffieldundef{doi}
+    {}
+    {% Check and print DOI if available  
     \printfield{doi}%  
-  }%  
+    }%  
   \finentry  
 }
+
 
 \DeclareNameFormat{editor}{%
   \ifboolexpr
@@ -266,15 +219,15 @@
 
 \DeclareFieldFormat[book]{year}{(#1)}
 \DeclareFieldFormat[book]{booktitle}{\textit{#1}}
-\DeclareFieldFormat[book]{title}{%
+\DeclareFieldFormat[book]{title}{
 \ifboolexpr
   {
     not test{\ifnameundef{author}}
     and
     not test{\ifnameundef{editor}}
   }
-  {\textit{#1}}
-  {}  
+  {}
+  {\textit{#1}}  
   }
 \DeclareFieldFormat[book]{edition}{(#1\addspace ed.).}
 \DeclareFieldFormat[book]{pages}{(pp. #1)}
@@ -298,7 +251,7 @@
     \newunit\newblock%  
     \printfield{eventtitle}% Conference name  
     \setunit{\addcomma\space}%  
-    \printfield{venue}% Location of the conference  
+    \printfield{address}% Location of the conference  
   }{%  
     % Format for a conference proceedings with an editor  
     \printfield{title}% Print the paper title  
