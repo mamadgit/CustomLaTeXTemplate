@@ -19,7 +19,7 @@
     \field{year}  
     \field{month}  
     \field{day}  
-    \field{sorttitle}  
+    \field{sorttitle} 
     \field{title}  
   }   
 }  
@@ -58,9 +58,11 @@
   \setunit{\addcomma\addspace}  
   \printfield{pages}%  
   %\newunit\newblock  
-  \iffieldundef{doi}  % Check if DOI is defined  
-    {} % Do nothing if DOI is not defined  
-    {\newunit\newblock\printfield{doi}} % Add the new unit and print DOI if defined   
+  \iffieldundef{doi}%
+    {\finentry}%
+    {% Check and print DOI if available  
+    \printfield{doi}%  
+    }%  
  }%  
 
 \DeclareNameFormat{author}{%  
@@ -100,69 +102,69 @@
 
 
 \DeclareBibliographyDriver{book}{%  
-  \usebibmacro{bibindex}%  
-  %Check if there's an editor or whether it's an Authro-Editor volume
-  \ifboolexpr
+  \usebibmacro{bibindex}% 
+  \usebibmacro{begentry}% 
+  % Check if there's an editor or whether it's an Author-Editor volume
+  \ifboolexpr%
   {
-   not test {\ifnameundef{author}}
-   and 
-   test {\ifnameundef{editor}} 
-  }
-  {
-        % Author-present case  
-        \printnames{author}% Print the authors' names  
-        \setunit{\labelnamepunct}\newblock%  
-        \printfield{year}% Print the year in parentheses  
-        \newunit\newblock% 
-        \iffieldundef{title}
-          {\printfield{booktitle}}  % If 'title' is undefined, use 'booktitle'
-          {\printfield{title}}  % Otherwise use 'title'
-        \setunit{\addspace}
-        \iffieldundef{edition}  
-          {}  
-          {\ifthenelse{\iffieldequalstr{edition}{1st} \OR \iffieldequalstr{edition}{1}}  % Check if edition is '1st' or just '1'  
-            {} % Do nothing for 1st edition  
-            {\printfield{edition}\addspace} % Print edition if not first  
-          }%  
-        
-        \ifboolexpr{%Author & Editor-present case
-          not test{\ifnameundef{author}}
-          and
-          not test{\ifnameundef{editor}}
-        }
-          {
-            \newunit\newblock
-            \printfield{editor}
-            \setunit{\addcomma\space}
-            \printfield{booktitle}
-            \space
-            \printfield{pages}
-            \newunit\newblock
-          }
-          {
-          
-          }
-  }
-  {
-        % Edited book or part of an edited volume  
-        \printnames{editor}% Print the editor's names  
-        \setunit{\addspace}%  
-        % {(Ed.)}%  
-        \setunit{\labelnamepunct}\newblock%  
-        \printfield{year}% Print the year in parentheses  
-        \newunit\newblock%  
-        \printfield{booktitle}
-  } 
-  \newunit\newblock
-  \printlist{publisher}
-  \iffieldundef{doi}
+    not test {\ifnameundef{author}}%
+    and %
+    test {\ifnameundef{editor}} %
+  }%
+  {%
+    % Author-present case  
+    \printnames{author}% Print the authors' names  
+    \setunit{\labelnamepunct}\newblock%  
+    \printfield{year}% Print the year in parentheses 
+    \setunit{\adddot}% 
+    \iffieldundef{title}%
+      {\printfield{booktitle}}% If 'title' is undefined, use 'booktitle'
+      {\printfield{title}}% Otherwise use 'title'
+    \setunit{\addspace}%
+    \iffieldundef{edition}%  
+      {}%  
+      {\ifthenelse{\iffieldequalstr{edition}{1st} \OR \iffieldequalstr{edition}{1}}% Check if edition is '1st' or just '1'  
+        {}% Do nothing for 1st edition  
+        {\printfield{edition}\addspace}% Print edition if not first  
+      }%  
+    % Author & Editor-present case
+    \ifboolexpr{%
+      not test{\ifnameundef{author}}%
+      and%
+      not test{\ifnameundef{editor}}%
+    }
+    {
+      \newunit\newblock%
+      \printnames{editor}%
+      \setunit{\addcomma\space}%
+      \printfield{booktitle}%
+      \space%
+      \printfield{pages}%
+      \newunit\newblock%
+    }
     {}
+  }
+  {
+    % Edited book or part of an edited volume  
+    \printnames{editor}% Print the editor's names  
+    \setunit{\addspace}%  
+    % {(Ed.)}%  
+    \setunit{\labelnamepunct}\newblock%  
+    \printfield{year}% Print the year in parentheses  
+    \newunit\newblock%  
+    \printfield{booktitle}%
+  } 
+  % Set to ensure no line break before publisher
+  %\setunit{\addspace}%
+  \newunit%  
+  \printlist{publisher}%  
+  \newunit\newblock%
+  \iffieldundef{doi}%
+    {\finentry}%
     {% Check and print DOI if available  
     \printfield{doi}%  
-    }%  
-  \finentry  
+    }%    
 }
-
 
 \DeclareNameFormat{editor}{%
   \ifboolexpr
@@ -233,45 +235,75 @@
 \DeclareFieldFormat[book]{pages}{(pp. #1)}
 
 
-\DeclareBibliographyDriver{InProceedings}{%  
-  \usebibmacro{bibindex}%  
-  \printnames{author}% Print the author's name  
-  \setunit{\labelnamepunct}\newblock%  
-  \printfield{year}% Print the year and month (if applicable)  
-  \newunit\newblock%  
+% \DeclareBibliographyDriver{inproceedings}{%  
+%   \usebibmacro{bibindex}%  
+%   \usebibmacro{begentry}%
+%   \printnames{author}% Print the author's name  
+%   \setunit{\labelnamepunct}\newblock%  
   
-  % Check if the entry has an editor field to decide the format  
-  \iffieldundef{editor}{%  
-    % Format for a conference presentation  
-    \printfield{eventdate}% Print the event date (e.g., "Year, Month dates")  
-    \newunit\newblock%  
-    \printfield{title}% Print the paper title in italics  
-    \setunit{\addspace}%  
-    {[Paper presentation]}%  
-    \newunit\newblock%  
-    \printfield{eventtitle}% Conference name  
-    \setunit{\addcomma\space}%  
-    \printfield{address}% Location of the conference  
-  }{%  
-    % Format for a conference proceedings with an editor  
-    \printfield{title}% Print the paper title  
-    \newunit\newblock%  
-    \printnames{editor}% Print the editor's name  
-    \setunit{\addspace}%  
-    {(Ed.),}%  
-    \newunit\newblock%  
-    \printfield{booktitle}% Print the conference title in italics  
-    \setunit{\addspace}%  
-    \printfield{pages}% Print the pages  
-    \newunit\newblock%  
-    \printlist{publisher}% Print the publisher  
-  }%  
+%   \printfield{year}% Print the year and month (if applicable)  
+%   %\newunit\newblock%  
   
-  \newunit\newblock%  
-  \iffieldundef{doi}{}{% Check if DOI is defined  
-    \printfield{doi}% Print the DOI  
-  }%  
-  \finentry  
+%   % Check if the entry has an editor field to decide the format  
+%   \iffieldundef{editor}%
+%   {%  
+%     % Format for a conference presentation  
+%     \printfield{eventdate}% Print the event date (e.g., "Year, Month dates")  
+%     \newunit\newblock%  
+%     \printfield{title}% Print the paper title in italics  
+%     \setunit{\addspace}%  
+%     {[Paper presentation]}%  
+%     \newunit\newblock%  
+%     \printfield{eventtitle}% Conference name  
+%     \setunit{\addcomma\space}%  
+%     \printfield{address}% Location of the conference  
+%   }%
+%   {%  
+%     % Format for a conference proceedings with an editor  
+%     \printfield{title}% Print the paper title  
+%     \newunit\newblock%  
+%     \printnames{editor}% Print the editor's name  
+%     \setunit{\addspace}%  
+%     {(Ed.),}%  
+%     \newunit\newblock%  
+%     \printfield{booktitle}% Print the conference title in italics  
+%     \setunit{\addspace}%  
+%     \printfield{pages}% Print the pages  
+%     \newunit%  
+%     \printlist{publisher}% Print the publisher  
+%   }%  
+  
+%   \newunit\newblock%
+%   \iffieldundef{doi}{%
+%     \finentry%
+%   }%
+%   {%
+%     \printfield{doi}%
+%   }%  
+% }
+\ExplSyntaxOn
+%Define a new command to extract event information by parsing backward
+\newcommand{\ExtractEventInfo}{1}{%
+  \tl_set:Nn \l_tmpa_tl{#1}   %Store the booktitle in \l_tmpa_tl
+  \tl_reverse:N \l_tmpa_tl    %Reverse the string
+  %Extract dates at the beginning due to the string being in reversed
+  \regex_extract_once:nnN { ^\s*(\d{4}\s*,\s*[^\s,]+(?:\s*-\s*[^\s,]+)?\s+[A-Za-z]+)\s* } { \l_tmpa_tl } \l_dates_reversed_tl 
+  %Remove the extracted dates from \l_tmpa_tl
+  \tl_set:Nx \l_tmpa_tl {\tl_remove_once:Nn \l_tmpa_tl}
+}
+
+\DeclareBibliographyDriver{inproceedings}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \printnames{author}%
+  \setunit{\labelnamepunct}\newblock%
+  \iffieldundef{editor}%
+  {%
+    
+  }%
+  {%
+    
+  }%
 }
 
 \DeclareBibliographyDriver{phdthesis}{%  
