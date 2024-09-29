@@ -281,29 +281,72 @@
 %     \printfield{doi}%
 %   }%  
 % }
-\ExplSyntaxOn
-%Define a new command to extract event information by parsing backward
-\newcommand{\ExtractEventInfo}{1}{%
-  \tl_set:Nn \l_tmpa_tl{#1}   %Store the booktitle in \l_tmpa_tl
-  \tl_reverse:N \l_tmpa_tl    %Reverse the string
-  %Extract dates at the beginning due to the string being in reversed
-  \regex_extract_once:nnN { ^\s*(\d{4}\s*,\s*[^\s,]+(?:\s*-\s*[^\s,]+)?\s+[A-Za-z]+)\s* } { \l_tmpa_tl } \l_dates_reversed_tl 
-  %Remove the extracted dates from \l_tmpa_tl
-  \tl_set:Nx \l_tmpa_tl {\tl_remove_once:Nn \l_tmpa_tl}
-}
+\ExplSyntaxOn  
+% Define a new command to extract event information by parsing backward  
+\newcommand{\ExtractEventInfo}[1]{%  
+  \tl_set:Nn \l_tmpa_tl {#1}% Store the booktitle in \l_tmpa_tl  
+  \tl_reverse:N \l_tmpa_tl% Reverse the string  
+  % Extract dates at the beginning due to the string being reversed  
+  \regex_extract_once:nnN { ^\s*(\d{4}\s*,\s*[^\s,]+(?:\s*-\s*[^\s,]+)?\s+[A-Za-z]+)\s* } { \l_tmpa_tl } \l_dates_reversed_tl%   
+  % Remove the extracted dates from \l_tmpa_tl  
+  \tl_set:Nx \l_tmpa_tl { \tl_remove_once:Nn \l_tmpa_tl { \l_dates_reversed_tl } }%  
+  % Extract Location  
+  \regex_extract_once:nnN { ^\s*,?\s*([^,]+) } { \l_tmpa_tl } \l_location_reversed_tl%  
+  \tl_set:Nx \l_tmpa_tl { \tl_remove_once:Nn \l_tmpa_tl { ,\c{ } \l_location_reversed_tl } }%  
+  % Remaining is the event name reversed  
+  \tl_set:Nn \l_eventname_reversed_tl { \l_tmpa_tl }%  
+  % Reverse back to original  
+  \tl_reverse:N \l_eventname_reversed_tl%  
+  \tl_reverse:N \l_location_reversed_tl%  
+  \tl_reverse:N \l_dates_reversed_tl%  
+  % Assign results  
+  \tl_set_eq:NN \l_eventname_tl { \l_eventname_reversed_tl }%  
+  \tl_set_eq:NN \l_location_tl { \l_location_reversed_tl }%  
+  \tl_set_eq:NN \l_dates_tl { \l_dates_reversed_tl }%  
+  % Trim spaces  
+  \tl_trim_spaces:N \l_eventname_tl%  
+  \tl_trim_spaces:N \l_location_tl%  
+  \tl_trim_spaces:N \l_dates_tl%  
+}  
+\ExplSyntaxOff
 
-\DeclareBibliographyDriver{inproceedings}{%
-  \usebibmacro{bibindex}%
-  \usebibmacro{begentry}%
-  \printnames{author}%
-  \setunit{\labelnamepunct}\newblock%
-  \iffieldundef{editor}%
-  {%
-    
-  }%
-  {%
-    
-  }%
+\DeclareBibliographyDriver{inproceedings}{%  
+  \usebibmacro{bibindex}%  
+  \usebibmacro{begentry}%  
+  \printnames{author}%  
+  \setunit{\labelnamepunct}\newblock%  
+  \printfield{year}%  
+  \setunit{\labelnamepunct}\newblock%  
+  \iffieldundef{editor}%   
+  {% % For when there is no editor and the bibliography should be printed as a conference session  
+    \printfield{title}%  
+    \newunit\newline%  
+    \printtext{[Conference session]}%  
+    \newunit\newline%  
+    \ExtractEventInfo{\thefield{booktitle}}%  
+    \printtext{\l_eventname_tl}%  
+    \newunit\newline%  
+    \printtext{\l_location_tl}%  
+    \newunit\newline%  
+    \printtext{(\l_dates_tl)}%  
+    \newunit\newline%  
+    \printfield{doi}%  
+  }%  
+  {% % For when there is an editor and the bibliography should be printed as an edited chapter in a book  
+    \printfield{title}%  
+    \newunit\newline%  
+    \printtext{In }%  
+    \printnames{editor}%  
+    \printtext{ (Ed.), }%  
+    \printfield{booktitle}%  
+    \newunit\newline%  
+    \printfield{pages}%  
+    \newunit\newline%  
+    \printfield{publisher}%  
+    \newunit\newline%  
+    \printfield{doi}%  
+  }%  
+  \usebibmacro{finentry}%  
 }
 
 \DeclareBibliographyDriver{phdthesis}{%  
